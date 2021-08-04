@@ -1,0 +1,12 @@
+$(function(){
+  //.modal_open_buttonをクリックすると動作
+  $(".modal_open_button").on("click",function(){
+    //.modal_winをフェードインで表示
+    $(".modal_win").fadeIn()
+  });
+  //.modal_close_buttonをクリックすると動作
+  $(".modal_close_button").on("click",function(){
+    //.modal_winをフェードアウトで非表示
+    $(".modal_win").fadeOut()
+  });
+});

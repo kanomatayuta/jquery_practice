@@ -1,0 +1,55 @@
+$(function () {
+  //btn__submitをクリックすると発動
+  $(".btn__submit").on("click", function () {
+    //名字とコンソール表示
+    console.log("名字");
+    //#family__nameのvalue値を取得しコンソール表示
+    console.log($("#family__name").val());
+    //名前とコンソール表示
+    console.log("名前");
+    //#given__nameのvalue値を取得しコンソール表示
+    console.log($("#given__name").val());
+    //生年月日とコンソール表示
+    console.log("生年月日");
+    //.yearと.monthと.dayのvalue値を取得し値を結合しコンソール表示
+    console.log($(".year").val() + "年" + $(".month").val() + "月" + $(".day").val() + "日");
+    //性別とコンソール表示
+    console.log("性別");
+    //name="gender"のチェックされたvalue値を取得しコンソール表示
+    console.log($('[name="gender"]:checked').val());
+    //職業とコンソール表示
+    console.log("職業");
+    //.occupationのvalue値を取得しコンソール表示
+    console.log($(".occupation").val());
+    //アカウント名とコンソール表示
+    console.log("アカウント名");
+    //#account__nameのvalue値を取得しコンソール表示
+    console.log($("#account__name").val());
+    //メールアドレスとコンソール表示
+    console.log("メールアドレス");
+    //#emailのvalue値を取得しコンソール表示
+    console.log($("#email").val());
+    //パスワードとコンソール表示
+    console.log("パスワード");
+    //#passwordのvalue値を取得しコンソール表示
+    console.log($("#password").val());
+    //確認用パスワードとコンソール表示
+    console.log("確認用パスワード");
+    //#duplication__passwordのvalue値を取得しコンソール表示
+    console.log($("#duplication__password").val());
+    //住所とコンソール表示
+    console.log("住所");
+    //#addressのvalue値を取得しコンソール表示
+    console.log($("#address").val());
+    //電話番号とコンソール表示
+    console.log("電話番号");
+    //#telのvalue値を取得しコンソール表示
+    console.log($("#tel").val());
+    //購読情報とコンソール表示
+    console.log("購読情報");
+    //name="subscriptionのチェックされたものだけvalue値を取得しコンソール表示
+    $('[name="subscription"]:checked').each(function(){
+      console.log($(this).val())
+    });
+  });
+});
