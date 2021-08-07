@@ -35,11 +35,11 @@ $(function(){
 $(function(){
   // #q5をクリック時に発動
   $("#q5").on("click",function(){
-  // #q5にDOMの挿入
-    $(this).prepend("DOMの中の前");
-    $(this).append("DOMの中の後");
-    $(this).before("DOMの前");
-    $(this).after("DOMの後");
+  // #q5にDOMの挿入 ※thisを指定した場合、複数書く時thisを書かなくても良い
+    $(this).prepend("DOMの中の前")
+    .append("DOMの中の後")
+    .before("DOMの前")
+    .after("DOMの後");
   });
 });
 
