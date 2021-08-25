@@ -139,13 +139,16 @@ $(function () {
     };
   };
   //ajax失敗時
-  function displayError() {
+  function displayError(err) {
     //.messageを削除
     $(".message").remove();
-    //.listsの前にDOM追加
-    $(".lists").before('<div class="message">正常に通信できませんでした。<br>インターネットの接続の確認をしてください。</div>');
-    console.log("ajax失敗、未通信");
-  };
+    //HTTPのステータスコードが0の時
+    if (0 === err.status) {
+      //.listsの前にDOM追加
+      $(".lists").before('<div class="message">正常に通信できませんでした。<br>インターネットの接続の確認をしてください。</div>');
+      console.log("ajax失敗、未通信");
+    }
+  }
 
   //reset時
   //.reset-btnをクリックすると発動
