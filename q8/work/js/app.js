@@ -41,15 +41,17 @@ $(function () {
   function displayResult(searchWord) {
     // .messageを削除
     $(".message").remove();
-    // ajaxでもらったデータがあるかどうかを見て処理
-    if (!(response = searchWord[0].items)) {
+    // 変数responseにajaxでもらったデータを代入
+    let response = searchWord[0].items
+    // 変数responseに値があるかないか(null)を比較し、１の場合trueの処理へ、０の場合falseの処理処理へ
+    if (0 < (null == response)) {
       // trueの場合(検索値が見つからない)
       // .listsの子要素のみ削除(.listsの中身を空にする)
       $(".lists").empty();
       // .listsの前にDOM追加
       $(".lists").before('<div class="message">検索結果が見つかりませんでした。<br>別のキーワードで検索して下さい。</div>');
       // falseの場合(検索値がある)
-    } else if (response.length) {
+    } else {
       // 引数のgetindexは配列のindex。getValはvalue。getValのみを使えば検索一覧を作成できる
       // ある場合(検索値が見つかった)は、eachで全データ出力するまで繰り返し処理
       $.each(searchWord[0].items, function (getindex, getVal) {
@@ -75,6 +77,9 @@ $(function () {
       $(".lists").before('<div class="message">正常に通信できませんでした。<br>インターネットの接続の確認をしてください。</div>');
       // HTTPのステータスコードが400の時。 サーバーが、クライアント側のエラー
     } else if (400 === err.status) {
+      $(".lists").before('<div class="message">正常に通信できませんでした。<br>インターネットの接続の確認をしてください。</div>');
+      // HTTPのステータスコードがそれ以外の時
+    } else {
       $(".lists").before('<div class="message">正常に通信できませんでした。<br>インターネットの接続の確認をしてください。</div>');
     }
   }
