@@ -47,16 +47,18 @@ $(function () {
       // 引数のgetindexは配列のindex。getValはvalue。getValのみを使えば検索一覧を作成できる
       // 値ある場合(検索値が見つかった)は、eachで全データ出力するまで繰り返し処理
       $.each(searchWord[0].items, function (getindex, getVal) {
-        // タイトル不明時のコメントを代入
-        const titleUnk = "タイトル不明"
-        // 作者不明時のコメントを代入
-        const creatorUnk = "作者不明"
-        // 出版社不明時のコメントを代入
-        const publisherUnk = "出版社不明"
-        // 変数resultに下記DOMを代入,  APIでタイトル,作者,出版社,書籍情報のリンク先を取得
-        var result = '<li class="lists-item"><div class="list-inner"><p>タイトル：' + ((getVal.title ? getVal.title : titleUnk)
-          + "</p><p>作者：") + ((getVal["dc:creator"] ? getVal["dc:creator"] : creatorUnk) + "</p><p>出版社：")
-          + ((getVal["dc:publisher"] ? getVal["dc:publisher"][0] : publisherUnk) + '</p><a href="') + (getVal.link["@id"] + '" target="_blank">書籍情報</a></div></li>');
+        // タイトル(getVal.title)の値が存在しているかを確認し、ある場合は値を表示、ない場合はテキストを定数へ代入
+        const getTitle = getVal.title ? getVal.title : "タイトル不明";
+        // 作者(getVal["dc:creator"])の値が存在しているかを確認し、ある場合は値を表示、ない場合はテキストを定数へ代入
+        const getCreator = getVal["dc:creator"] ? getVal["dc:creator"] : "作者不明";
+        // 出版社(getVal["dc:publisher"])の値が存在しているかを確認し、ある場合は値を表示、ない場合はテキストを定数へ代入
+        const getPublisher = getVal["dc:publisher"] ? getVal["dc:publisher"][0] : "出版社不明";
+        // リンク(getVal.link["@id"])の値が存在しているかを確認し、ある場合は値を表示、ない場合はテキストを定数へ代入
+        const getLink = getVal.link["@id"]
+        // 定数resultに下記DOMを代入,  APIでタイトル,作者,出版社,書籍情報のリンク先を取得
+        const result = '<li class="lists-item"><div class="list-inner"><p>タイトル：' + getTitle
+          + "</p><p>作者：" + getCreator + "</p><p>出版社："
+          + getPublisher + '</p><a href="' + getLink + '" target="_blank">書籍情報</a></div></li>';
         // .listsの子要素の先頭にresultを追加
         $(".lists").prepend(result);
       });
@@ -75,16 +77,16 @@ $(function () {
     $(".message").remove();
     // .listsの子要素のみ削除(.listsの中身を空にする)
     $(".lists").empty();
-    // HTTPのステータスコードが0の時。 AJAX要求がキャンセルされた
+    // HTTPのステータスコードが0の時。 AJAX要求がキャンセルされた　インターネットの接続がない
     if (0 === err.status) {
       // .listsの前にDOM追加
       $(".lists").before('<div class="message">正常に通信できませんでした。<br>インターネットの接続の確認をしてください。</div>');
-      // HTTPのステータスコードが400の時。 サーバーが、クライアント側のエラー
+      // HTTPのステータスコードが400の時。 クライアント側のエラー 不正なリクエスト
     } else if (400 === err.status) {
-      $(".lists").before('<div class="message">正常に通信できませんでした。<br>インターネットの接続の確認をしてください。</div>');
-      // HTTPのステータスコードがそれ以外の時
+      $(".lists").before('<div class="message">正常に通信できませんでした。<br>ブラウザか端末の問題があります。</div>');
+      // HTTPのステータスコードがそれ以外の時　サーバー側問題
     } else {
-      $(".lists").before('<div class="message">正常に通信できませんでした。<br>インターネットの接続の確認をしてください。</div>');
+      $(".lists").before('<div class="message">正常に通信できませんでした。<br>サーバー側に問題があります。</div>');
     }
   }
 
