@@ -1,6 +1,6 @@
 $(function () {
   // 変数pageCountに１を代入
-  let pageCount = 1;
+  let pageCount = 1
   // compareWordは比較するため変数を作成
   let compareWord = "";
   // .search-btnをクリックすると発動
@@ -10,13 +10,13 @@ $(function () {
     // searchWordとcompareWordの文字列が一致するかの比較
     if (searchWord !== compareWord) {
       // 違う検索値の場合、１ページから表示
+      pageCount = 1
       // .listsの子要素のみ削除(.listsの中身を空にする)
       $(".lists").empty();
-      pageCount = 1
       // compareWordにsearchWordを代入
       compareWord = searchWord;
     } else {
-      // 同じ検索値の場合
+      // 同じ検索値の場合、pageCountを1ずつプラスする
       pageCount++;
     }
 
@@ -30,6 +30,7 @@ $(function () {
       // response内容から値を取得しresultに代入
       const result = response['@graph'];
       displayResult(result);
+      console.log(pageCount)
       // failは通信失敗した場合の処理
     }).fail(function (err) {
       displayError(err);
@@ -80,10 +81,11 @@ $(function () {
     // HTTPのステータスコードが0の時。 AJAX要求がキャンセルされた　インターネットの接続がない
     if (0 === err.status) {
       // .listsの前にDOM追加
+      console.log(err.status)
       $(".lists").before('<div class="message">正常に通信できませんでした。<br>インターネットの接続の確認をしてください。</div>');
-      // HTTPのステータスコードが400の時。 クライアント側のエラー 不正なリクエスト
+      // HTTPのステータスコードが400の時。 不正なリクエスト　パラメータが空
     } else if (400 === err.status) {
-      $(".lists").before('<div class="message">正常に通信できませんでした。<br>ブラウザか端末の問題があります。</div>');
+      $(".lists").before('<div class="message">検索結果が見つかりませんでした。<br>別のキーワードで検索して下さい。</div>');
       // HTTPのステータスコードがそれ以外の時　サーバー側問題
     } else {
       $(".lists").before('<div class="message">正常に通信できませんでした。<br>サーバー側に問題があります。</div>');
@@ -93,8 +95,10 @@ $(function () {
   // reset時(リセット)
   // .reset-btnをクリックすると発動
   $(".reset-btn").on("click", function () {
-    // pageCountに0を代入
-    pageCount = 0;
+    // pageCountに1を代入
+    pageCount = 1;
+    // compareWordの値を空に
+    compareWord = "";
     // .listsの子要素のみ削除(.listsの中身を空にする)
     $(".lists").empty();
     // .messageを削除（.messageごと削除する）
