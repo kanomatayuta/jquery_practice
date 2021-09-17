@@ -30,7 +30,6 @@ $(function () {
       // response内容から値を取得しresultに代入
       const result = response['@graph'];
       displayResult(result);
-      console.log(pageCount)
       // failは通信失敗した場合の処理
     }).fail(function (err) {
       displayError(err);
@@ -81,11 +80,10 @@ $(function () {
     // HTTPのステータスコードが0の時。 AJAX要求がキャンセルされた　インターネットの接続がない
     if (0 === err.status) {
       // .listsの前にDOM追加
-      console.log(err.status)
       $(".lists").before('<div class="message">正常に通信できませんでした。<br>インターネットの接続の確認をしてください。</div>');
       // HTTPのステータスコードが400の時。 不正なリクエスト　パラメータが空
     } else if (400 === err.status) {
-      $(".lists").before('<div class="message">検索結果が見つかりませんでした。<br>別のキーワードで検索して下さい。</div>');
+      $(".lists").before('<div class="message">お探しのページが見つかりません。<br>リクエストされた内容をサーバが理解できませんでした。</div>');
       // HTTPのステータスコードがそれ以外の時　サーバー側問題
     } else {
       $(".lists").before('<div class="message">正常に通信できませんでした。<br>サーバー側に問題があります。</div>');
