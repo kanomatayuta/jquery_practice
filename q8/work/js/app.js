@@ -83,7 +83,7 @@ $(function () {
       $(".lists").before('<div class="message">正常に通信できませんでした。<br>インターネットの接続の確認をしてください。</div>');
       // HTTPのステータスコードが400の時。 不正なリクエスト　パラメータが空
     } else if (400 === err.status) {
-      $(".lists").before('<div class="message">お探しのページが見つかりません。<br>リクエストされた内容をサーバが理解できませんでした。</div>');
+      $(".lists").before('<div class="message">お探しのページが見つかりません。<br>検索値を見直し、もう一度やり直してください。</div>');
       // HTTPのステータスコードがそれ以外の時　サーバー側問題
     } else {
       $(".lists").before('<div class="message">正常に通信できませんでした。<br>サーバー側に問題があります。</div>');
