@@ -78,12 +78,12 @@ $(function () {
     // .listsの子要素のみ削除(.listsの中身を空にする)
     $(".lists").empty();
     // HTTPのステータスコードが0の時。 AJAX要求がキャンセルされた　インターネットの接続がない
-    if (0 === err.status) {
+    if (err.status === 0) {
       // .listsの前にDOM追加
       $(".lists").before('<div class="message">正常に通信できませんでした。<br>インターネットの接続の確認をしてください。</div>');
       // HTTPのステータスコードが400の時。 不正なリクエスト　パラメータが空
-    } else if (400 === err.status) {
-      $(".lists").before('<div class="message">お探しのページが見つかりません。<br>検索値を見直し、もう一度やり直してください。</div>');
+    } else if (err.status === 400) {
+      $(".lists").before('<div class="message">検索キーワードが有効ではありません。<br>1文字以上で検索して下さい。</div>');
       // HTTPのステータスコードがそれ以外の時　サーバー側問題
     } else {
       $(".lists").before('<div class="message">正常に通信できませんでした。<br>サーバー側に問題があります。</div>');
